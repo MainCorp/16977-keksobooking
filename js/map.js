@@ -112,7 +112,7 @@ function createHotelDialogs() {
   element.querySelector('.lodge__address').textContent = hotel.offer.address;
   element.querySelector('.lodge__price').textContent = hotel.offer.price + '&#x20bd;/ночь';
   element.querySelector('.lodge__type').textContent = hotel.offer.type;
-  element.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + hotel.offer.guests + ' гостей в '+ hotel.offer.rooms + ' комнатах';
+  element.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + hotel.offer.guests + ' гостей в ' + hotel.offer.rooms + ' комнатах';
   element.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + hotel.offer.checkin + ', выезд до ' + hotel.offer.checkout;
   element.querySelector('.lodge__description').textContent = hotel.offer.description;
 
