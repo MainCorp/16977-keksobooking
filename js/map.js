@@ -73,7 +73,7 @@ function randomMinMax(min, max) {
 function getAvatar(min, max, way, format) {
   var currentRandom = randomMinMax(min, max);
   var element = oldAvatars[currentRandom];
-  var uniqueElement = parseInt(oldAvatars.splice(oldAvatars.indexOf(element), 1).join());
+  var uniqueElement = parseInt(oldAvatars.splice(oldAvatars.indexOf(element), 1).join(), 10);
 
   if (uniqueElement > 0 && uniqueElement < 10) {
     return way + 0 + uniqueElement + format;
