@@ -76,7 +76,7 @@ function getAvatar(min, max, way, format) {
 
   if (uniqueElement > 0 && uniqueElement < 10) {
     return way + 0 + uniqueElement + format;
-  } else if(uniqueElement >= 10) {
+  } else if (uniqueElement >= 10) {
     return way + uniqueElement + format;
   } else {
     return way + 0 + currentRandom + format;
