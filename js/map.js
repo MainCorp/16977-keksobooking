@@ -33,14 +33,14 @@ var dataHotels = {
   ],
 
   'checkin': [
-    '12:00', 
-    '13:00', 
+    '12:00',
+    '13:00',
     '14:00'
   ],
 
   'checkout': [
-    '12:00', 
-    '13:00', 
+    '12:00',
+    '13:00',
     '14:00'
   ],
 
@@ -75,19 +75,19 @@ function getAvatar(min, max, way, format) {
   var uniqueElement = oldAvatars.splice(oldAvatars.indexOf(element), 1).join();
 
   if (uniqueElement > 0 && uniqueElement < 10) {
-      return way + 0 + uniqueElement + format;
-    } else if(uniqueElement >= 10) {
-      return way + uniqueElement + format;
-    } else {
-      return way + 0 + currentRandom + format;
-    }
+    return way + 0 + uniqueElement + format;
+  } else if(uniqueElement >= 10) {
+    return way + uniqueElement + format;
+  } else {
+    return way + 0 + currentRandom + format;
+  }
 }
 
 function getUniqueArrayElement(array) {
   var current = random(array.length);
   var element = array[current];
   var uniqueElement = array.splice(array.indexOf(element), 1);
-  
+
   return uniqueElement;
 }
 
@@ -175,7 +175,7 @@ function createHotelDialogs(hotel) {
   element.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + hotel.offer.checkin + ', выезд до ' + hotel.offer.checkout;
   element.querySelector('.lodge__description').textContent = hotel.offer.description;
 
-  for (var i = 0; i < dataHotels.features.length; i++) {
+  for (var j = 0; j < dataHotels.features.length; j++) {
     var featureImages = document.createElement('span');
     featureImages.classList.add('feature__image');
     featureImages.classList.add('feature__image--' + hotel.offer.features);
@@ -188,14 +188,14 @@ function createHotelDialogs(hotel) {
   return element;
 }
 
-function showDialogs(argument) {
+function showDialogs() {
   var dialogPanels = document.querySelectorAll('.dialog__panel');
   document.querySelector('#offer-dialog').removeChild(dialogPanels[0]);
   document.querySelector('#offer-dialog').appendChild(createHotelDialogs(getHotel()));
 }
 
 function showHotels(num) {
-  for (var i = 0; i < num; i++) {
+  for (var k = 0; k < num; k++) {
     fragment.appendChild(createPinMapElement(getHotel()));
   }
 }
