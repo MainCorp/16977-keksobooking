@@ -55,11 +55,11 @@ var dataHotels = {
 };
 
 var cloneTitleHotels = dataHotels.title.slice(0);
-var oldAvatars = [];
+var collectionAvatars = [];
 var allHotels = [];
 
 for (var i = MIN_AVATARS; i <= MAX_AVATARS; i++) {
-  oldAvatars.push(i);
+  collectionAvatars.push(i);
 }
 
 function random(element) {
@@ -70,18 +70,21 @@ function randomMinMax(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-function getAvatar(min, max, way, format) {
-  var currentRandom = randomMinMax(min, max);
-  var element = oldAvatars[currentRandom];
-  var uniqueElement = parseInt(oldAvatars.splice(oldAvatars.indexOf(element), 1).join(), 10);
-
-  if (uniqueElement > 0 && uniqueElement < 10) {
-    return way + 0 + uniqueElement + format;
-  } else if (uniqueElement >= 10) {
-    return way + uniqueElement + format;
+function leftPadWithZero(n) {
+   if (n > 10) {
+    return '' + n;
   } else {
-    return way + 0 + currentRandom + format;
+    return '0' + n;
   }
+}
+
+function pullAvatar() {
+  var index = random(collectionAvatars.length);
+  var avatarIndex = collectionAvatars[index];
+  
+  collectionAvatars.splice(index, 1);
+   
+  return 'img/avatars/user' + leftPadWithZero(avatarIndex) + '.png';
 }
 
 function pullRandomElement(array) {
@@ -108,7 +111,7 @@ function getHotel() {
 
   var hotel = {
     'author': {
-      'avatar': getAvatar(MIN_AVATARS, MAX_AVATARS, 'img/avatars/user', '.png')
+      'avatar': pullAvatar()
     },
 
     'offer': {
@@ -143,7 +146,7 @@ function createPinMapElement(hotel) {
   image.src = hotel.author.avatar;
   image.classList.add('rounded');
   image.setAttribute('width', '40px');
-  image.setAttribute('heihgt', '40px');
+  image.setAttribute('height', '40px');
 
   element.appendChild(image);
 
@@ -153,6 +156,8 @@ function createPinMapElement(hotel) {
 function createHotelDialog(hotel) {
   var element = hotelDialogTemplate.cloneNode(true);
   var lodgeType;
+  var collectionFeatures = [];
+  var featureImages;
 
   element.querySelector('.lodge__title').textContent = hotel.offer.title;
   element.querySelector('.lodge__address').textContent = hotel.offer.address;
@@ -177,11 +182,16 @@ function createHotelDialog(hotel) {
   element.querySelector('.lodge__description').textContent = hotel.offer.description;
 
   for (var j = 0; j < hotel.offer.features.length; j++) {
-    var featureImages = document.createElement('span');
+    featureImages = document.createElement('span');
     featureImages.classList.add('feature__image');
-    featureImages.classList.add('feature__image--' + hotel.offer.features);
-
+    collectionFeatures.push('feature__image--' + hotel.offer.features[j]);
     element.querySelector('.lodge__features').appendChild(featureImages);
+  }
+
+  console.log(featureImages);
+
+  for (var l = 0; l < collectionFeatures.length; l++) {
+    featureImages.classList.add(collectionFeatures[l]);
   }
 
   document.querySelector('.dialog__title img').src = hotel.author.avatar;
@@ -200,7 +210,6 @@ function showHotels(num) {
   for (var d = 0; d < num; d++) {
     fragment.appendChild(createPinMapElement(allHotels[d]));
   }
-  showDialog(allHotels[random(QUANTITY_HOTELS)]);
 }
 
 for (var k = 0; k < QUANTITY_HOTELS; k++) {
@@ -208,4 +217,5 @@ for (var k = 0; k < QUANTITY_HOTELS; k++) {
 }
 
 showHotels(QUANTITY_HOTELS);
+showDialog(allHotels[random(QUANTITY_HOTELS)]);
 containerPinMapHotels.appendChild(fragment);
