@@ -54,6 +54,12 @@ var dataHotels = {
   ]
 };
 
+var lodgeTypes = {
+  'flat': 'Квартира',
+  'bungalo': 'Бунгало',
+  'house': 'Дом'
+};
+
 var cloneTitleHotels = dataHotels.title.slice(0);
 var collectionAvatars = [];
 var allHotels = [];
@@ -146,7 +152,7 @@ function getHotel() {
 function createPinMapElement(hotel) {
   var element = document.createElement('div');
   element.classList.add('pin');
-  element.style = 'left: ' + hotel.location.x + 'px; top: ' + hotel.location.y + 'px';
+  element.style = 'left: ' + hotel.location.x / 2 + 'px; top: ' + hotel.location.y + 'px';
 
   var image = document.createElement('img');
   image.src = hotel.author.avatar;
@@ -179,24 +185,11 @@ function createFeaturesHotel(hotel, element) {
 
 function createHotelDialog(hotel) {
   var element = hotelDialogTemplate.cloneNode(true);
-  var lodgeType;
-
-  switch (hotel.offer.type) {
-    case 'flat':
-      lodgeType = 'Квартира';
-      break;
-    case 'bungalo':
-      lodgeType = 'Бунгало';
-      break;
-    case 'house':
-      lodgeType = 'Дом';
-      break;
-  }
 
   element.querySelector('.lodge__title').textContent = hotel.offer.title;
   element.querySelector('.lodge__address').textContent = hotel.offer.address;
   element.querySelector('.lodge__price').textContent = hotel.offer.price + ' ₽/ночь';
-  element.querySelector('.lodge__type').textContent = lodgeType;
+  element.querySelector('.lodge__type').textContent = lodgeTypes[hotel.offer.type];
   element.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + hotel.offer.guests + ' гостей в ' + hotel.offer.rooms + ' комнатах';
   element.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + hotel.offer.checkin + ', выезд до ' + hotel.offer.checkout;
   element.querySelector('.lodge__description').textContent = hotel.offer.description;
