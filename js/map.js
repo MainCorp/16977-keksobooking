@@ -15,7 +15,7 @@ var MIN_AVATARS = 1;
 var MAX_AVATARS = 8;
 
 var dataHotels = {
-  'title': [
+  title: [
     'Большая уютная квартира',
     'Маленькая неуютная квартира',
     'Огромный прекрасный дворец',
@@ -26,25 +26,25 @@ var dataHotels = {
     'Неуютное бунгало по колено в воде'
   ],
 
-  'type': [
+  type: [
     'flat',
     'house',
     'bungalo'
   ],
 
-  'checkin': [
+  checkin: [
     '12:00',
     '13:00',
     '14:00'
   ],
 
-  'checkout': [
+  checkout: [
     '12:00',
     '13:00',
     '14:00'
   ],
 
-  'features': [
+  features: [
     'wifi',
     'dishwasher',
     'parking',
@@ -55,9 +55,14 @@ var dataHotels = {
 };
 
 var lodgeTypes = {
-  'flat': 'Квартира',
-  'bungalo': 'Бунгало',
-  'house': 'Дом'
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом'
+};
+
+var pinMap = {
+  width: 56,
+  height: 75
 };
 
 var cloneTitleHotels = dataHotels.title.slice(0);
@@ -122,27 +127,27 @@ function getHotel() {
   var locationY = randomMinMax(100, 500);
 
   var hotel = {
-    'author': {
-      'avatar': pullAvatar()
+    author: {
+      avatar: pullAvatar()
     },
 
-    'offer': {
-      'title': pullRandomElement(cloneTitleHotels),
-      'address': locationX + ', ' + locationY,
-      'price': randomMinMax(MIN_PRICE, MAX_PRICE),
-      'type': getRandomArray(dataHotels.type),
-      'rooms': randomMinMax(MIN_ROOMS, MAX_ROOMS),
-      'guests': randomMinMax(MIN_GUESTS, MAX_GUESTS),
-      'checkin': getRandomArray(dataHotels.checkin),
-      'checkout': getRandomArray(dataHotels.checkout),
-      'features': getFeatures(dataHotels.features),
-      'description': '',
-      'photos': []
+    offer: {
+      title: pullRandomElement(cloneTitleHotels),
+      address: locationX + ', ' + locationY,
+      price: randomMinMax(MIN_PRICE, MAX_PRICE),
+      type: getRandomArray(dataHotels.type),
+      rooms: randomMinMax(MIN_ROOMS, MAX_ROOMS),
+      guests: randomMinMax(MIN_GUESTS, MAX_GUESTS),
+      checkin: getRandomArray(dataHotels.checkin),
+      checkout: getRandomArray(dataHotels.checkout),
+      features: getFeatures(dataHotels.features),
+      description: '',
+      photos: []
     },
 
-    'location': {
-      'x': locationX,
-      'y': locationY
+    location: {
+      x: locationX,
+      y: locationY
     }
   };
 
@@ -151,8 +156,11 @@ function getHotel() {
 
 function createPinMapElement(hotel) {
   var element = document.createElement('div');
+  var x = hotel.location.x - pinMap.width;
+  var y = hotel.location.y;
+
   element.classList.add('pin');
-  element.style = 'left: ' + hotel.location.x / 2 + 'px; top: ' + hotel.location.y + 'px';
+  element.style = 'left: ' + x + 'px; top: ' + y + 'px';
 
   var image = document.createElement('img');
   image.src = hotel.author.avatar;
@@ -218,5 +226,5 @@ for (var k = 0; k < QUANTITY_HOTELS; k++) {
 }
 
 showHotels(QUANTITY_HOTELS);
-showDialog(allHotels[random(QUANTITY_HOTELS)]);
+showDialog(allHotels[0]);
 containerPinMapHotels.appendChild(fragment);
