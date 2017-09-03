@@ -156,8 +156,8 @@ function getHotel() {
 
 function createPinMapElement(hotel) {
   var element = document.createElement('div');
-  var x = hotel.location.x - pinMap.width;
-  var y = hotel.location.y;
+  var x = hotel.location.x - (pinMap.width / 2);
+  var y = hotel.location.y - pinMap.height;
 
   element.classList.add('pin');
   element.style = 'left: ' + x + 'px; top: ' + y + 'px';
